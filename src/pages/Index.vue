@@ -16,7 +16,7 @@
             </q-item-section>
             <q-item-section>{{ index + 1 }} - {{ listaTarefas.titulo }} </q-item-section>
             <q-item-section v-if="listaTarefas.feito == true">
-              <q-btn outline class="q-pa-sm" color="red" icon="delete"></q-btn>
+              <q-btn outline class="q-pa-sm" color="red" icon="delete" @click="deletarTarefa(index)"></q-btn>
             </q-item-section>
             <q-item-section v-if="listaTarefas.feito == false">
               <q-btn disable outline class="q-pa-sm" color="red" icon="delete"></q-btn>
@@ -51,11 +51,27 @@ export default {
   }, 
   methods: { 
     adicionarTarefa () { 
+      if(this.novaTarefa.length !== 0){
       this.listaTarefas.push({
         titulo: this.novaTarefa, 
         feito: false
       })
+    }else{ 
+      console.log('Nao tem nada escrito para cadastrar tarefa')
+    }
       this.novaTarefa = ''
+    }, 
+    deletarTarefa(index) { 
+      this.$q
+        .dialog({
+          title: 'confirmar',
+          message: 'Deseja realmente deletar essa tarefa?',
+          cancel: true, 
+          persistent: true
+        }).onOk(() => { 
+          this.listaTarefas.splice(index, 1)
+          this.$q.notify('tarefa deletada com sucesso')
+      })
     }
   }
 }
