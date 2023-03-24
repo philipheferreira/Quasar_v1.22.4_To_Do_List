@@ -1,14 +1,14 @@
 <template>
   <q-page class="container q-pa-xs bg-grey-1">
       <div class="row">
-        <q-input class="q-pa-md" style="max-width: 500px" filled v-model="novaTarefa" @keyup.enter="adicionarTarefa" label="Tarefa" placeholder="adicionar nova tarefa" >
+        <q-input class="q-pa-md" style="min-width: 600px; max-width: 800px;" filled v-model="novaTarefa" @keyup.enter="adicionarTarefa" label="Tarefa" placeholder="adicionar nova tarefa" >
           <template v-slot:append>
-            <q-btn color="white" text-color="black" label="Standard" class="q-pa-xm" @click="adicionarTarefa"/>
+            <q-btn color="white" text-color="black" label="Adicionar" class="q-pa-xm" @click="adicionarTarefa"/>
           </template>
         </q-input>
       </div>
 
-      <div class="q-pa-md" style="max-width: 600px">
+      <div class="q-pa-md" style="max-width: 800px;">
         <q-list bordered separator>
           <q-item v-for="(listaTarefas, index) in listaTarefas" :key="index">
             <q-item-section avatar>
@@ -16,10 +16,14 @@
             </q-item-section>
             <q-item-section>{{ index + 1 }} - {{ listaTarefas.titulo }} </q-item-section>
             <q-item-section v-if="listaTarefas.feito == true">
-              <q-btn outline class="q-pa-sm" color="red" icon="delete" @click="deletarTarefa(index)"></q-btn>
+              <div>
+                <q-btn outline class="q-ma-sm" color="red" icon="delete" @click.stop="deletarTarefa(index)"></q-btn>
+              </div>
             </q-item-section>
             <q-item-section v-if="listaTarefas.feito == false">
-              <q-btn disable outline class="q-pa-sm" color="red" icon="delete"></q-btn>
+              <div class="q-ma-sm">
+                <q-btn disable outline color="red" icon="delete"></q-btn>
+              </div>
             </q-item-section>
           </q-item>
         </q-list>
@@ -39,11 +43,11 @@ export default {
           feito: true
         }, 
         {
-          titulo: 'Almoçar direitinho', 
+          titulo: 'Treinar no violao', 
           feito: false
         },
         {
-          titulo: 'Lembrar de fazer as atividades de tester', 
+          titulo: 'Revisar as materias do concurso', 
           feito: true
         }
       ]
@@ -61,9 +65,8 @@ export default {
     }
       this.novaTarefa = ''
     }, 
-    deletarTarefa(index) { 
-      this.$q
-        .dialog({
+    deletarTarefa (index) { 
+      this.$q.dialog({
           title: 'confirmar',
           message: 'Deseja realmente deletar essa tarefa?',
           cancel: true, 
