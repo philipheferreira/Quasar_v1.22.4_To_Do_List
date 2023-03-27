@@ -1,7 +1,7 @@
 <template>
-  <q-page class="container q-pa-xs bg-grey-1">
+  <q-page class="container q-pa-xs bg-grey-1 column justify-center items-center">
       <div class="row">
-        <q-input class="q-pa-md" style="min-width: 600px; max-width: 800px;" filled v-model="novaTarefa" @keyup.enter="adicionarTarefa" label="Tarefa" placeholder="adicionar nova tarefa" >
+        <q-input class="q-pa-md" style="min-width: 420px; max-width: 800px;" filled v-model="novaTarefa" @keyup.enter="adicionarTarefa" label="Tarefa" placeholder="adicionar nova tarefa" >
           <template v-slot:append>
             <q-btn color="white" text-color="black" label="Adicionar" class="q-pa-xm" @click="adicionarTarefa"/>
           </template>
